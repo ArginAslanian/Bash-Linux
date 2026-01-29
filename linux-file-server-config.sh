@@ -172,3 +172,25 @@ sudo journalctl -u smbd
 sudo journalctl -u nmbd
 sudo journalctl -u samba
 sudo journalctl -u samba-ad-dc
+
+# Syncing files between two linux file servers using rsync over SSH
+# On source server
+rsync -avz -e ssh /srv/fileshare/ user@destination_server_ip:/srv/fileshare/
+# Replace user and destination_server_ip with actual values
+
+# Set up cron job for periodic sync
+crontab -e
+# Add the following line for daily sync at 2 AM
+0 2 * * * rsync -avz -e ssh /srv/fileshare/ user@destination_server_ip:/srv/fileshare/
+# Save and exit vim
+# Esc :wq   
+
+# sync files using linux workstation
+rsync -avz -e ssh /local/directory/ user@file_server_ip:/srv/fileshare/
+# Replace /local/directory/, user, and file_server_ip with actual values    
+# On destination server, verify files
+ls -l /srv/fileshare
+
+# Check rsync logs if any issues
+sudo tail -f /var/log/syslog
+sudo journalctl -xe 
