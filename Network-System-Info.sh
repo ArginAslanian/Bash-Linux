@@ -119,3 +119,14 @@ killall <process_name>      # Terminate all processes with the given name
 df -h                       # Show disk space usage in human-readable format
 du -sh /path/to/directory   # Show the size of a directory
 uptime                      # Display system uptime and load averages
+
+# Troubleshooting "home directory is full" issue for a user
+df -h ~ # Check disk usage of home directory
+quota -s # Check user disk quota
+du -h --max-depth=1 ~ | sort -hr | head -n 20 # Find large files/directories in home
+du -h --max-depth=1 ~/OffenderFolder | sort -hr | head -n 20 # Check specific folder usage
+find ~/OffenderFolder -type f -printf '%s\t%p\n' | sort -nr | head -n 20 # Find largest files in specific folder
+# Check Downloads, zip, tar, tmp, cache, trash folders for large files
+du -sh ~/Downloads/* | sort -hr | head -n 10
+du -sh ~/.cache/* | sort -hr | head -n 10
+du -sh ~/.local/share/Trash/* | sort -hr | head -n 10   

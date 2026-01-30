@@ -129,6 +129,28 @@ sudo chmod -R 2775 /srv/fileshare # 2775 for read access to others, 2770 for gro
 # Check samba users
 sudo pdbedit -L
 
+# if user can ssh into the server but not access samba share:
+# 1. Ensure the samba user exists and is enabled
+sudo smbpasswd -e sambauser
+# 2. Ensure the samba user has access to the share in smb.conf
+# 3. Check samba logs for more details
+sudo tail -f /var/log/samba/log.smbd
+sudo tail -f /var/log/samba/log.nmbd
+# 4. Check file system ACLs if applicable
+getfacl /srv/fileshare
+# 5. Test access using smbclient
+smbclient //SERVER_IP/fileshare -U sambauser
+# 6. Check SELinux context if SELinux is enabled
+ls -Z /srv/fileshare
+# Set correct SELinux context if needed
+sudo chcon -t samba_share_t /srv/fileshare  -R
+# 7. Restart samba services
+sudo systemctl restart smbd nmbd
+# 8. Possibly the credentials for ssh and samba are different, ensure you are using the correct password for sambauser
+# 9. Check path permissions leading to the share directory
+ls -ld /srv
+ls -ld /srv/fileshare
+
 # Wrong filesystem type:
 # Ensure 'cifs' is used for mounting Samba shares, not 'smbfs'
 # Ensure cifs-utils is installed
