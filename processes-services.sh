@@ -77,7 +77,20 @@ htop
 # Create alises for frequently used commands
 alias psmem="ps aux --sort=-%mem | head -n 10"
 alias pscpu="ps aux --sort=-%cpu | head -n 10"
-# Then you can use `psmem` and `pscpu` commands directly in the terminal
+# Then you can use `psmem` and `pscpu` commands directly in the terminal (temporarily for the session)
+
+# For permanent aliases, add the above alias commands to your ~/.bashrc (user only) or 
+# /etc/bash.bashrc or /etc/profile file (all users) and run `source ~/.bashrc` to apply changes.
+
+vim ~/.bashrc
+# Custom aliases
+alias ll='ls -lah'
+alias gs='git status'
+alias dfh='df -h'
+alias psa='ps aux'
+alias ports='ss -tulpn'
+# Save and exit the file, then run:
+source ~/.bashrc
 
 
 ####################################################
