@@ -74,6 +74,12 @@ htop
 # sort by CPU: F6 -> select CPU%
 # F10 - quit htop
 
+# Create alises for frequently used commands
+alias psmem="ps aux --sort=-%mem | head -n 10"
+alias pscpu="ps aux --sort=-%cpu | head -n 10"
+# Then you can use `psmem` and `pscpu` commands directly in the terminal
+
+
 ####################################################
 # SERVICE MANAGEMENT COMMANDS
 
