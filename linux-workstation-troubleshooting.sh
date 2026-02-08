@@ -472,3 +472,22 @@ mount -o remount,rw /
 passwd <username>
 # Reboot the system
 reboot  
+
+# 26. Linux Performance problems
+uptime              # Check system load average 
+dmesg -T | tail     # Check for kernel errors
+vmstat 1            # Overall stats by 1 second
+mpstat -P ALL 1     # CPU usage by all cores
+pidstat 1           # Per process stats by 1 second
+iostat -xz 1        # Disk I/O stats by 1 second
+free -m             # Memory usage
+sar -n DEV 1        # Network stats by 1 second
+sar -n TCP,ETCP 1   # TCP stats by 1 second
+df -h               # Disk space usage
+top                 # Interactive process viewer
+atop                # Alternative interactive process viewer
+htop                # Another interactive process viewer
+strace -p <pid>     # Trace system calls of a process (Do NOT use on production systems without proper analysis)
+perf top            # Real-time performance monitoring
+perf record -F 99 -a -g -- sleep 10  # Record performance data for 10 seconds
+perf report -n --stdio    # Analyze recorded performance data
