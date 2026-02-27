@@ -24,3 +24,10 @@ sudo ufw allow 443/tcp
 sudo ufw status
 sudo ufw enable
 sudo ufw status verbose
+
+# ON THE LAB SERVER MACHINE (NOT CONNECTED TO INTERNET)
+# Once NAT adapter is attached, need to get an IP address from the DHCP server on the host machine
+ip a                # to find the interface name (e.g., eth0, enp0s3, etc.)
+sudo dhclient -r <interface_name>  # to release the current IP address
+sudo dhclient <interface_name>     # to request a new IP address from the DHCP server
+ip a                # to verify the new IP address has been obtained
